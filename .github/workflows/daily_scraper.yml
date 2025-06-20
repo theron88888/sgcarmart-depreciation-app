@@ -1,0 +1,38 @@
+name: Daily Scraper Update
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # Runs every day at 1:00 AM UTC
+  workflow_dispatch:     # Allows manual triggering of workflow from GitHub UI
+
+jobs:
+  update-dataset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run scraper script
+        run: python scraper.py
+
+      - name: Commit and push updated CSV
+        run: |
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git config --global user.name "GitHub Actions"
+          git add data/used_cars_master.csv
+          git commit -m "🔄 Daily data update"
+          git push
+        env:
+          # Required so push works with GitHub token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
