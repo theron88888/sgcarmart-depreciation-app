@@ -3,8 +3,7 @@ import streamlit as st
 import plotly.express as px
 
 # Load your master dataset
-df = pd.read_csv(
-    "C:/Users/thero/OneDrive/Desktop/Sgcarmart/data/used_cars_master.csv")
+df = pd.read_csv("data/used_cars_master.csv")
 
 # Basic cleanup
 df['Mileage (km)'] = df['Mileage'].str.replace('km', '').str.replace(
