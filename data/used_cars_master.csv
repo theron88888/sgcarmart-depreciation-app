@@ -1909,7 +1909,7 @@ Volkswagen ID.Buzz Electric Cargo Pro,"$125,388","30-Apr-2025
 (9y 10m COE left)","$12,710 /yr",N.A,2 Owners,
 Subaru WRX STI S207,"$139,800","05-Apr-2016
 (9m COE left)","$100,820 /yr","3,500 km",1 Owner,
-Mazda 3 1.5A Sunroof,"$4,900",19-Jun-2015,N.A,N.A,3 Owners,
+Mazda 3 1.5A Sunroof,"$4,900",19-Jun-15,N.A,N.A,3 Owners,
 BMW 7 Series 740Li M-Sport Sunroof (New 10-yr COE),"$206,800","24-Nov-2015
 (10y COE left)","$20,670 /yr","31,000 km",2 Owners,
 Jaguar XE 2.0A i4,"$113,000","26-Mar-2018
@@ -2292,7 +2292,7 @@ BMW 2 Series 216i Gran Tourer,"$83,800","28-Feb-2020
 (4y 8m COE left)","$14,940 /yr","84,700 km",2 Owners,
 Toyota Sienta 1.5A G,"$23,800","10-Aug-2016
 (1y 1m COE left)","$15,630 /yr","133,164 km",5 Owners,
-Mercedes-Benz E-Class E200,"$29,800",25-Jun-2015,N.A,"132,000 km",3 Owners,
+Mercedes-Benz E-Class E200,"$29,800",25-Jun-15,N.A,"132,000 km",3 Owners,
 Nissan Qashqai 1.2A DIG-T,"$49,800","28-Jun-2018
 (3y COE left)","$13,070 /yr","68,000 km",1 Owner,
 Mazda 6 2.0A Executive,"$40,800","15-Jun-2017
@@ -2809,7 +2809,7 @@ SEAT Ibiza 1.0A EcoTSI DSG Style,"$73,800","09-Apr-2021
 (5y 9m COE left)","$11,240 /yr","50,000 km",1 Owner,
 Mazda CX-60 2.5A Luxury,"$192,800","25-Oct-2023
 (8y 4m COE left)","$21,240 /yr","25,000 km",1 Owner,
-Rolls-Royce Phantom Drophead,"$700,000",03-Jan-2012,N.A,"14,560 km",3 Owners,
+Rolls-Royce Phantom Drophead,"$700,000",3-Jan-12,N.A,"14,560 km",3 Owners,
 Mercedes-Benz E-Class E200 Cabriolet,Tender,"08-Oct-2020
 (5y 3m COE left)",N.A,"27,660 km",1 Owner,
 Mercedes-Benz GLA-Class GLA180 Urban Edition,Tender,"20-Mar-2020
@@ -4578,7 +4578,7 @@ Volkswagen Passat 1.8A TFSI,"$58,800","30-Apr-2018
 (2y 10m COE left)","$14,480 /yr",N.A,1 Owner,
 Mazda 3 1.5A Sunroof,"$11,500","15-Dec-2015
 (5m COE left)",N.A,N.A,3 Owners,
-Toyota Corolla Altis 1.6A Elegance,"$11,500",16-Jun-2015,N.A,N.A,4 Owners,
+Toyota Corolla Altis 1.6A Elegance,"$11,500",16-Jun-15,N.A,N.A,4 Owners,
 BMW 2 Series 216i Gran Tourer,"$113,800","22-Jan-2021
 (5y 7m COE left)","$16,680 /yr","80,000 km",1 Owner,
 Lexus IS Hybrid IS300h Executive,"$87,800","27-Sep-2018
@@ -5417,8 +5417,8 @@ Hyundai Tucson 1.6A GLS T-GDi DCT Turbo,"$45,888","16-Dec-2017
 (2y 5m COE left)","$14,750 /yr","135,000 km",4 Owners,
 Mitsubishi Outlander 2.4A Sunroof,"$18,800","07-Jan-2016
 (6m COE left)","$14,980 /yr","131,245 km",1 Owner,
-Porsche Macan 2.0A PDK,"$52,500",30-Jun-2015,N.A,N.A,5 Owners,
-Mazda 3 1.5A Sunroof,"$4,900",22-Jun-2015,N.A,N.A,4 Owners,
+Porsche Macan 2.0A PDK,"$52,500",30-Jun-15,N.A,N.A,5 Owners,
+Mazda 3 1.5A Sunroof,"$4,900",22-Jun-15,N.A,N.A,4 Owners,
 Mitsubishi Attrage 1.2A,"$70,800","14-Apr-2021
 (5y 9m COE left)","$11,740 /yr","50,000 km",1 Owner,
 Mercedes-Benz C-Class C180 Avantgarde,"$26,800","14-Sep-2015
@@ -5581,7 +5581,7 @@ Mercedes-Benz SL-Class SL43 Cabriolet Mild Hybrid AMG Premium Plus,"$409,000","0
 (8y 1m COE left)",N.A,"12,500 km",1 Owner,
 Toyota Raize 1.0A XS,"$79,888","25-Aug-2021
 (6y 2m COE left)","$12,520 /yr","49,365 km",4 Owners,
-Mazda 3 1.5A Deluxe Sunroof,"$8,888",15-Jun-2015,N.A,N.A,2 Owners,
+Mazda 3 1.5A Deluxe Sunroof,"$8,888",15-Jun-15,N.A,N.A,2 Owners,
 Mercedes-Benz EQA Electric EQA250 Art,"$225,888","30-Aug-2024
 (9y 2m COE left)","$22,370 /yr",900 km,1 Owner,
 Honda Vezel 1.5A G,"$144,800","14-May-2024
@@ -7627,7 +7627,7 @@ BMW M3 Sedan (COE till 01/2035),"$249,888","08-Jan-2015
 (9y 6m COE left)","$26,140 /yr","79,000 km",2 Owners,
 Volkswagen Golf 1.4A TSI Highline,"$66,800","14-Jan-2019
 (3y 6m COE left)","$14,980 /yr","140,000 km",2 Owners,
-Volkswagen Beetle 1.2A TSI Sunroof,"$6,900",29-Jun-2015,N.A,"100,000 km",3 Owners,
+Volkswagen Beetle 1.2A TSI Sunroof,"$6,900",29-Jun-15,N.A,"100,000 km",3 Owners,
 Ford Mustang Convertible 5.0A GT,"$155,000","12-Mar-2018
 (2y 8m COE left)","$42,000 /yr","58,000 km",1 Owner,
 Mercedes-Benz E-Class E300e Plug-in Hybrid AMG Line,"$186,000","23-Mar-2021
@@ -8088,7 +8088,7 @@ Hyundai Avante 1.6A GLS S,"$77,500","29-Oct-2020
 (5y 4m COE left)","$13,070 /yr","91,000 km",3 Owners,
 MINI Cooper Clubman 1.5A,"$51,800","23-Nov-2017
 (2y 5m COE left)","$15,440 /yr","83,126 km",1 Owner,
-Toyota ISIS 1.8A LX,"$15,999",16-Jul-2015,N.A,"95,000 km",2 Owners,
+Toyota ISIS 1.8A LX,"$15,999",16-Jul-15,N.A,"95,000 km",2 Owners,
 Audi Q3 1.4A TFSI S-tronic,"$29,800","31-May-2016
 (11m COE left)","$15,280 /yr","83,189 km",1 Owner,
 Audi A6 1.8A TFSI Ultra S-tronic,"$49,800","31-May-2017
@@ -9632,7 +9632,7 @@ BMW 3 Series 325i Convertible (COE till 03/2028),"$28,800","28-Mar-2008
 (2y 9m COE left)","$10,390 /yr","154,963 km",More than 6,
 Suzuki Swift 1.4A GLX (COE till 04/2027),"$20,800","17-May-2012
 (1y 10m COE left)","$11,160 /yr","109,000 km",4 Owners,
-Mercedes-Benz C-Class C200 AMG Line,"$40,800",24-Jun-2015,N.A,"140,000 km",5 Owners,
+Mercedes-Benz C-Class C200 AMG Line,"$40,800",24-Jun-15,N.A,"140,000 km",5 Owners,
 Mazda 3 HB 1.5A Sunroof,"$16,900","17-May-2016
 (10m COE left)","$12,940 /yr","160,000 km",2 Owners,
 Mercedes-Benz C-Class C180 Exclusive,"$29,800","25-Sep-2015
@@ -10432,7 +10432,7 @@ Nissan Pulsar 1.2A DIG-T,"$26,222","31-May-2017
 (1y 11m COE left)","$11,540 /yr","130,000 km",1 Owner,
 Volvo S60 T2,"$54,800","22-Jun-2018
 (3y COE left)","$13,620 /yr","96,367 km",1 Owner,
-Volkswagen Jetta GP 1.4A TSI Highline,"$6,800",25-Jun-2015,N.A,"106,000 km",2 Owners,
+Volkswagen Jetta GP 1.4A TSI Highline,"$6,800",25-Jun-15,N.A,"106,000 km",2 Owners,
 Nissan Note 1.2A,"$15,000","16-Sep-2016
 (1y 2m COE left)","$10,070 /yr","177,338 km",3 Owners,
 Subaru Impreza 4D 1.6i-S,"$34,500","23-Nov-2017
@@ -10682,7 +10682,7 @@ BMW 5 Series 535i Sunroof (COE till 04/2031),"$108,808","29-Jul-2011
 (5y 10m COE left)","$18,550 /yr","130,000 km",4 Owners,
 Toyota Alphard 2.5A X 8-Seater Moonroof,"$237,777","20-Jun-2022
 (7y COE left)","$30,670 /yr","36,000 km",1 Owner,
-Porsche Boxster 2.7A (COE till 03/2029),"$75,000",09-Mar-2009,N.A,"74,213 km",4 Owners,
+Porsche Boxster 2.7A (COE till 03/2029),"$75,000",9-Mar-09,N.A,"74,213 km",4 Owners,
 Toyota MRS 1.8A V-Edition (COE till 10/2027),"$40,800","17-Oct-2007
 (2y 3m COE left)","$17,540 /yr","98,762 km",1 Owner,
 Ferrari 599 GTB Fiorano (COE till 08/2031),"$380,888","19-Aug-2011
@@ -11275,7 +11275,7 @@ Porsche Cayenne 3.0A Tip (COE till 10/2034),"$458,888","11-Oct-2024
 Audi e-tron GT Electric Quattro,"$338,888",N.A,N.A,N.A,N.A.,
 Toyota C-HR 1.2A S-T Turbo,"$53,800","27-Dec-2017
 (2y 6m COE left)","$15,730 /yr","83,519 km",2 Owners,
-Maserati Quattroporte 3.0A,"$79,000",17-Jun-2015,N.A,N.A,3 Owners,
+Maserati Quattroporte 3.0A,"$79,000",17-Jun-15,N.A,N.A,3 Owners,
 Suzuki Vitara 1.6A GLX Sunroof,"$35,800","25-Sep-2017
 (2y 3m COE left)","$12,540 /yr",N.A,1 Owner,
 Porsche Macan 4 Electric,"$396,800","29-Nov-2024
@@ -11346,7 +11346,7 @@ Mitsubishi Outlander 2.0A Style,"$111,800","27-Apr-2021
 (5y 10m COE left)","$16,990 /yr","48,968 km",1 Owner,
 Mitsubishi Attrage 1.2A,"$25,800","24-Oct-2017
 (2y 4m COE left)","$9,940 /yr",N.A,1 Owner,
-Audi RS 5 Coupe 4.2A FSI Quattro,"$115,800",14-Aug-2012,N.A,"85,000 km",3 Owners,
+Audi RS 5 Coupe 4.2A FSI Quattro,"$115,800",14-Aug-12,N.A,"85,000 km",3 Owners,
 Mercedes-Benz C-Class C180 Coupe (COE till 12/2027),"$37,800","30-Apr-2013
 (2y 6m COE left)","$14,920 /yr","90,000 km",2 Owners,
 BYD e6 Electric,"$97,000","20-Dec-2022
@@ -11797,7 +11797,7 @@ Ferrari 360 Spider F1 (COE till 10/2031),"$228,000","08-Aug-2002
 (6y 4m COE left)","$35,790 /yr","33,000 km",More than 6,
 Honda Vezel 1.5A G,"$130,800","29-Sep-2022
 (7y 3m COE left)","$17,620 /yr",N.A,1 Owner,
-BMW 3 Series 330Ci Cabriolet (COE till 08/2028),"$80,888",29-Aug-2008,N.A,N.A,More than 6,
+BMW 3 Series 330Ci Cabriolet (COE till 08/2028),"$80,888",29-Aug-08,N.A,N.A,More than 6,
 Mercedes-Benz E-Class E200 Avantgarde,"$115,888","11-Mar-2019
 (3y 8m COE left)","$21,480 /yr","127,000 km",3 Owners,
 Land Rover Range Rover Evoque 2.0A 5DR TSS,"$70,000","16-Jun-2017
@@ -12743,7 +12743,7 @@ Toyota Prius Hybrid 1.8A,"$98,788","21-Jun-2021
 (6y COE left)","$15,240 /yr","45,000 km",1 Owner,
 Toyota Alphard 2.5A Z,"$283,888","28-Dec-2023
 (8y 6m COE left)","$30,070 /yr","10,000 km",1 Owner,
-Alfa Romeo Spider (COE till 04/2029),"$188,000",06-May-1976,N.A,N.A,More than 6,
+Alfa Romeo Spider (COE till 04/2029),"$188,000",6-May-76,N.A,N.A,More than 6,
 Mercedes-Benz GLC-Class GLC250 4MATIC,"$135,500","27-Jun-2019
 (4y COE left)","$26,890 /yr","100,500 km",2 Owners,
 MINI Cooper S Electric Sunroof,"$160,800","24-Feb-2023
@@ -13180,7 +13180,7 @@ Toyota Wish 1.8A X,"$32,800","04-Jan-2017
 (1y 6m COE left)","$14,470 /yr","56,050 km",2 Owners,
 Rolls-Royce Phantom EWB (COE till 05/2027),"$318,000","25-Jun-2007
 (1y 11m COE left)","$163,250 /yr","14,000 km",2 Owners,
-Honda Civic 1.6A VTi-S,"$14,999",29-Jun-2015,N.A,"140,700 km",4 Owners,
+Honda Civic 1.6A VTi-S,"$14,999",29-Jun-15,N.A,"140,700 km",4 Owners,
 Toyota Vios 1.5A E,"$44,800","11-Apr-2018
 (2y 9m COE left)","$13,500 /yr","78,000 km",1 Owner,
 BMW 4 Series 420i Convertible M-Sport,"$216,988","31-Mar-2022
@@ -15185,7 +15185,7 @@ Toyota Harrier 2.0A Elegance,"$22,800","24-Aug-2015
 (2m COE left)",N.A,"142,681 km",3 Owners,
 Toyota Prius C Hybrid 1.5A,"$27,000","16-Sep-2016
 (1y 2m COE left)","$19,740 /yr","98,000 km",3 Owners,
-Mazda 3 1.5A,"$5,890",24-Jun-2015,N.A,"110,000 km",2 Owners,
+Mazda 3 1.5A,"$5,890",24-Jun-15,N.A,"110,000 km",2 Owners,
 Jaguar E-PACE 2.0A Prestige,"$92,800","27-Jun-2019
 (4y COE left)","$18,850 /yr","78,628 km",2 Owners,
 Audi Q2 1.0A TFSI S-tronic,"$48,800","25-Aug-2017
@@ -15266,7 +15266,7 @@ Audi A6 2.0A TFSI MU (COE till 10/2031),"$79,588","19-Jan-2012
 (6y 4m COE left)","$12,420 /yr","138,000 km",1 Owner,
 Mercedes-Benz C-Class C200 AMG Line Premium Sunroof,"$83,999","16-Nov-2017
 (2y 4m COE left)","$21,030 /yr","90,543 km",1 Owner,
-Volvo S60 Diesel D2,"$10,800",25-Jun-2015,N.A,"150,000 km",2 Owners,
+Volvo S60 Diesel D2,"$10,800",25-Jun-15,N.A,"150,000 km",2 Owners,
 Maserati Ghibli 3.0A,"$108,888","27-Apr-2016
 (10m COE left)","$48,870 /yr","118,000 km",1 Owner,
 SOKON EC31 Electric,"$92,500","16-Apr-2024
@@ -15686,7 +15686,7 @@ Hyundai Avante 1.6A GLS S,"$71,800","15-Oct-2019
 (4y 3m COE left)","$14,890 /yr","105,125 km",2 Owners,
 Opel Astra Sports Tourer Diesel 1.6A Turbo,"$60,899","19-Mar-2020
 (4y 8m COE left)","$10,400 /yr",N.A,2 Owners,
-Citroen C4 Cactus 1.2A PureTech,"$5,988",16-Jul-2015,N.A,N.A,3 Owners,
+Citroen C4 Cactus 1.2A PureTech,"$5,988",16-Jul-15,N.A,N.A,3 Owners,
 MINI John Cooper Works 2.0A,"$95,822","31-Jan-2019
 (3y 7m COE left)","$20,360 /yr","57,000 km",4 Owners,
 Mitsubishi Pajero 2.0M (COE till 03/2032),"$50,888","30-Mar-2022
@@ -17443,7 +17443,7 @@ Ferrari F430 Scuderia (COE till 04/2029),"$788,800","05-Jun-2009
 (3y 10m COE left)","$204,050 /yr","28,000 km",4 Owners,
 Volkswagen ID.4 Electric Pro,"$183,800","28-Jun-2024
 (9y COE left)","$18,830 /yr","9,800 km",1 Owner,
-Subaru XV 1.6A,"$9,500",25-Jun-2015,N.A,N.A,2 Owners,
+Subaru XV 1.6A,"$9,500",25-Jun-15,N.A,N.A,2 Owners,
 Mercedes-Benz GLB-Class GLB180 Progressive,"$199,800","14-Jul-2023
 (8y COE left)","$22,080 /yr","31,000 km",1 Owner,
 Volkswagen Sportsvan 1.4A TSI Comfortline,"$37,800","27-Dec-2017
@@ -17956,7 +17956,7 @@ Mercedes-Benz 280C (COE till 05/2029),"$68,000","14-May-2019
 (3y 10m COE left)","$15,600 /yr","999,999 km",3 Owners,
 Kia Carens Diesel 1.7A Sunroof,"$28,800","31-Oct-2016
 (1y 4m COE left)","$13,460 /yr","103,835 km",4 Owners,
-Porsche Macan Diesel S 3.0A PDK,"$62,888",26-Jun-2015,N.A,N.A,1 Owner,
+Porsche Macan Diesel S 3.0A PDK,"$62,888",26-Jun-15,N.A,N.A,1 Owner,
 Mercedes-Benz C-Class C180 Cabriolet,"$108,000","04-Apr-2018
 (2y 9m COE left)","$27,930 /yr","98,000 km",1 Owner,
 Skoda Octavia 2.0A TSI RS,"$111,788","17-Dec-2020
@@ -18049,7 +18049,7 @@ Volvo S90 T5 Momentum,"$50,500","19-Jan-2017
 (1y 6m COE left)","$17,790 /yr",N.A,2 Owners,
 Rolls-Royce Ghost (COE till 10/2031),"$418,800","31-May-2013
 (6y 4m COE left)","$65,750 /yr","84,000 km",4 Owners,
-Mazda 5 2.0A SP Sunroof,"$7,200",24-Jun-2015,N.A,"145,000 km",3 Owners,
+Mazda 5 2.0A SP Sunroof,"$7,200",24-Jun-15,N.A,"145,000 km",3 Owners,
 Opel Astra Sports Tourer 1.0A,"$25,588","26-Jul-2017
 (2y 1m COE left)","$11,000 /yr","134,000 km",3 Owners,
 Mercedes-Benz GLB-Class GLB200 AMG Line Premium 7-Seater,"$170,800","19-Aug-2020
@@ -19126,7 +19126,7 @@ Shineray X30L Electric,"$78,800","31-Mar-2023
 (7y 9m COE left)","$10,120 /yr",N.A,4 Owners,
 Citroen C4 Cactus 1.2A PureTech,"$17,800","23-Jun-2016
 (1y COE left)","$15,180 /yr",N.A,4 Owners,
-Bentley Continental Flying Spur 6.0A (COE till 07/2029),"$125,800",13-Jul-2009,N.A,"138,178 km",6 Owners,
+Bentley Continental Flying Spur 6.0A (COE till 07/2029),"$125,800",13-Jul-09,N.A,"138,178 km",6 Owners,
 Audi R8 Spyder 4.2A FSI Quattro R-tronic (COE till 12/2030),"$160,000","03-Jan-2011
 (5y 6m COE left)","$28,900 /yr","79,800 km",6 Owners,
 Porsche 911 C4 Cabriolet Tip (New 10-yr COE),"$188,888","18-Mar-2004
@@ -19687,7 +19687,7 @@ Volkswagen Scirocco GP 1.4A TSI,"$30,800","23-Dec-2016
 (1y 6m COE left)","$14,100 /yr","104,000 km",4 Owners,
 Mercedes-Benz E-Class E220 (COE till 01/2029),"$48,800","12-Jan-1999
 (3y 6m COE left)","$13,680 /yr","255,000 km",6 Owners,
-Maserati GranTurismo S 4.7A (COE till 05/2031),"$94,888",20-May-2011,N.A,"109,000 km",3 Owners,
+Maserati GranTurismo S 4.7A (COE till 05/2031),"$94,888",20-May-11,N.A,"109,000 km",3 Owners,
 Toyota Noah Hybrid 1.8A X,"$215,800","22-Jan-2024
 (8y 7m COE left)","$23,760 /yr",50 km,1 Owner,
 Mercedes-Benz eVito Electric 112 Long,"$118,888","12-Dec-2022
@@ -20755,7 +20755,7 @@ MINI Cooper Countryman 1.6A,"$35,800","28-Oct-2016
 (1y 4m COE left)","$16,710 /yr","119,000 km",1 Owner,
 Mercedes-Benz E-Class E250 Avantgarde,"$95,800","25-Jan-2018
 (2y 7m COE left)","$22,130 /yr",N.A,2 Owners,
-BMW 5 Series 528i,"$29,888",23-Jun-2015,N.A,"115,000 km",4 Owners,
+BMW 5 Series 528i,"$29,888",23-Jun-15,N.A,"115,000 km",4 Owners,
 Mercedes-Benz G-Class G63 AMG 4MATIC,"$780,000","14-Jul-2023
 (8y COE left)","$80,020 /yr",900 km,1 Owner,
 Mazda 3 Mild Hybrid 1.5A Classic,"$160,000","11-Apr-2025
@@ -21332,7 +21332,7 @@ McLaren 570S (New 10-yr COE),"$535,500","30-May-2016
 (10y COE left)","$53,520 /yr","28,000 km",5 Owners,
 BMW 2 Series 216i Active Tourer,"$66,300","21-Dec-2018
 (3y 6m COE left)","$14,150 /yr","95,000 km",2 Owners,
-Volkswagen Jetta GP 1.4A TSI Highline,"$8,500",29-Jun-2015,N.A,N.A,1 Owner,
+Volkswagen Jetta GP 1.4A TSI Highline,"$8,500",29-Jun-15,N.A,N.A,1 Owner,
 Honda Vezel 1.5A X,"$78,888","24-Sep-2020
 (5y 3m COE left)","$13,550 /yr","48,000 km",1 Owner,
 Tesla Model 3 Electric Performance,"$143,000","20-Sep-2021
@@ -21485,7 +21485,7 @@ Toyota Vellfire Hybrid 2.5A Z,"$358,800","31-Dec-2024
 (9y 6m COE left)","$31,470 /yr","1,500 km",1 Owner,
 Mercedes-Benz GLB-Class GLB200 AMG Line 7-Seater,"$143,800","09-Nov-2020
 (5y 4m COE left)","$22,940 /yr",N.A,2 Owners,
-Porsche Macan S 3.0A PDK,"$83,888",29-Jun-2015,N.A,"118,000 km",5 Owners,
+Porsche Macan S 3.0A PDK,"$83,888",29-Jun-15,N.A,"118,000 km",5 Owners,
 BMW 5 Series 530e Plug-in Hybrid,"$238,888","22-Feb-2022
 (6y 8m COE left)","$29,830 /yr","15,874 km",3 Owners,
 Honda Fit 1.3A GF Honda Sensing,"$58,838","09-May-2019
@@ -22042,7 +22042,7 @@ BMW 6 Series 640i Coupe (COE till 01/2031),"$104,800","08-Mar-2012
 (5y 7m COE left)","$18,640 /yr",N.A,4 Owners,
 Volvo S90 T5 Momentum,"$46,800","21-Dec-2016
 (1y 6m COE left)","$16,270 /yr",N.A,4 Owners,
-Mercedes-Benz CLA-Class CLA45 AMG 4MATIC,"$58,888",10-Jul-2015,N.A,"150,000 km",6 Owners,
+Mercedes-Benz CLA-Class CLA45 AMG 4MATIC,"$58,888",10-Jul-15,N.A,"150,000 km",6 Owners,
 Toyota ProAce Electric Icon,"$88,800","23-Nov-2022
 (7y 5m COE left)","$11,950 /yr","81,000 km",1 Owner,
 Mercedes-Benz GLC-Class GLC250d Coupe AMG Line 4MATIC,"$78,000","16-Mar-2017
@@ -22615,7 +22615,7 @@ Jaguar F-Type 3.0SC S ST2 Convertible (COE till 07/2033),"$164,800","18-Jul-2013
 (8y COE left)","$20,400 /yr","65,000 km",3 Owners,
 Mercedes-Benz A-Class A180 Progressive,"$84,888","25-Apr-2019
 (3y 10m COE left)","$17,650 /yr","85,000 km",1 Owner,
-Toyota Alphard 2.5A S Moonroof,"$38,000",24-Jun-2015,N.A,"86,000 km",1 Owner,
+Toyota Alphard 2.5A S Moonroof,"$38,000",24-Jun-15,N.A,"86,000 km",1 Owner,
 MG 4 Electric Trophy Sport LR,"$140,000","11-Apr-2025
 (9y 9m COE left)","$14,270 /yr",500 km,1 Owner,
 Honda Shuttle 1.5A G,"$68,000","09-Dec-2019
@@ -22742,7 +22742,7 @@ Lexus RX300 Luxury Sunroof,"$279,800","27-Apr-2022
 (6y 10m COE left)","$34,920 /yr","51,800 km",1 Owner,
 Mercedes-Benz CLA-Class CLA180,"$27,888","18-Jul-2016
 (1y COE left)","$13,840 /yr","99,000 km",4 Owners,
-Audi A3 Sedan 1.4A TFSI Ambiente,"$9,300",30-Jun-2015,N.A,"200,000 km",2 Owners,
+Audi A3 Sedan 1.4A TFSI Ambiente,"$9,300",30-Jun-15,N.A,"200,000 km",2 Owners,
 Honda Fit Hybrid 1.5A,"$61,800","25-Sep-2019
 (4y 3m COE left)","$13,540 /yr",N.A,2 Owners,
 Peugeot 3008 1.6A PureTech EAT6 Active,"$56,800","19-Oct-2018
@@ -22924,7 +22924,7 @@ BMW X7 xDrive40i Pure Excellence 7-Seater,"$339,800","13-Oct-2021
 (6y 3m COE left)","$41,000 /yr","90,000 km",2 Owners,
 BMW M850i Coupe xDrive,"$268,800","14-Feb-2019
 (3y 7m COE left)","$50,030 /yr","32,800 km",3 Owners,
-Toyota Alphard 3.5A SA C-Package Moonroof,"$169,000",23-Jun-2015,N.A,"120,000 km",3 Owners,
+Toyota Alphard 3.5A SA C-Package Moonroof,"$169,000",23-Jun-15,N.A,"120,000 km",3 Owners,
 Subaru Forester 2.0i-L Sunroof,"$55,388","23-Aug-2018
 (3y 2m COE left)","$15,320 /yr","91,600 km",2 Owners,
 Golden Dragon Electric,"$96,988","07-Mar-2025
@@ -23705,7 +23705,7 @@ Honda Fit Hybrid 1.5A e-HEV,"$107,888","27-Jun-2022
 (7y COE left)","$14,960 /yr","29,000 km",1 Owner,
 BMW X7 xDrive40i Pure Excellence 7-Seater,"$330,000","20-Feb-2020
 (4y 7m COE left)","$54,260 /yr","45,000 km",1 Owner,
-Volkswagen Beetle 1.2A TSI Sunroof,"$7,500",29-Jun-2015,N.A,"100,000 km",3 Owners,
+Volkswagen Beetle 1.2A TSI Sunroof,"$7,500",29-Jun-15,N.A,"100,000 km",3 Owners,
 Honda Civic 2.0A (COE till 08/2028),"$39,800","20-Aug-2008
 (3y 1m COE left)","$12,570 /yr","153,000 km",More than 6,
 Nissan X-Trail 2.0A,"$47,388","20-Sep-2017
@@ -24178,7 +24178,7 @@ BMW 2 Series 216d Active Tourer,"$42,800","28-Dec-2017
 (2y 6m COE left)","$12,360 /yr","115,182 km",3 Owners,https://www.sgcarmart.com/used-cars/info/bmw-2-series-216d-1411276/?dl=1001
 Hyundai Avante 1.6A GLS S,"$80,800","27-Oct-2020
 (5y 4m COE left)","$13,720 /yr","77,492 km",1 Owner,https://www.sgcarmart.com/used-cars/info/hyundai-avante-16a-gls-1411273/?dl=2728
-BMW 5 Series 523i (COE till 06/2025),"$13,000",15-Jul-2005,N.A,"138,039 km",1 Owner,https://www.sgcarmart.com/used-cars/info/bmw-5-series-523i-1410187/?dl=2563
+BMW 5 Series 523i (COE till 06/2025),"$13,000",15-Jul-05,N.A,"138,039 km",1 Owner,https://www.sgcarmart.com/used-cars/info/bmw-5-series-523i-1410187/?dl=2563
 Infiniti Q30 Diesel 1.5A T,"$42,000","23-Mar-2018
 (2y 8m COE left)","$11,630 /yr","109,000 km",2 Owners,https://www.sgcarmart.com/used-cars/info/infiniti-q30-diesel-15a-1401324/?dl=1220&utm_content=SLeligible
 Mercedes-Benz E-Class E250 Avantgarde,"$104,800","06-Dec-2018
@@ -27840,7 +27840,7 @@ Porsche Macan 2.0A PDK,"$203,888","20-Aug-2019
 (4y 1m COE left)","$38,750 /yr","67,600 km",1 Owner,https://www.sgcarmart.com/used-cars/info/porsche-macan-20a-pdk-1406484/?dl=4447
 Audi Q2 1.0A TFSI S-tronic,"$78,800","31-Oct-2019
 (4y 4m COE left)","$15,200 /yr","78,000 km",1 Owner,https://www.sgcarmart.com/used-cars/info/audi-q2-10a-tfsi-1406402/?dl=4038
-Infiniti Q50 2.0A T Premium,"$20,800",24-Jun-2015,N.A,N.A,2 Owners,https://www.sgcarmart.com/used-cars/info/infiniti-q50-20a-t-1406215/?dl=4343
+Infiniti Q50 2.0A T Premium,"$20,800",24-Jun-15,N.A,N.A,2 Owners,https://www.sgcarmart.com/used-cars/info/infiniti-q50-20a-t-1406215/?dl=4343
 Mitsubishi Lancer EX 1.6A (OPC),"$16,500","22-Apr-2016
 (9m COE left)","$11,830 /yr",N.A,3 Owners,https://www.sgcarmart.com/used-cars/info/mitsubishi-lancer-ex-16a-1406462/?dl=3137
 Audi R8 4.2A FSI Quattro R-tronic (COE till 10/2028),"$120,000","30-Oct-2008
@@ -28551,7 +28551,7 @@ Tesla Model 3 Electric RWD,"$179,885","03-Jun-2024
 (8y 11m COE left)","$18,710 /yr","6,000 km",1 Owner,https://www.sgcarmart.com/used-cars/info/tesla-model-3-electric-1351426/?dl=3163&utm_content=SLeligible
 Audi S3 Sedan 2.0A TFSI Quattro,"$87,400","26-Dec-2017
 (2y 6m COE left)","$23,680 /yr","93,000 km",6 Owners,https://www.sgcarmart.com/used-cars/info/audi-s3-sedan-20a-1367433/?dl=2943&utm_content=SLeligible
-Citroen C4 Cactus 1.2A PureTech,"$4,988",16-Jul-2015,N.A,N.A,3 Owners,https://www.sgcarmart.com/used-cars/info/citroen-c4-cactus-12a-1333347/?dl=3895
+Citroen C4 Cactus 1.2A PureTech,"$4,988",16-Jul-15,N.A,N.A,3 Owners,https://www.sgcarmart.com/used-cars/info/citroen-c4-cactus-12a-1333347/?dl=3895
 Honda Civic 1.5A VTEC Turbo Sunroof,"$110,888","24-Nov-2020
 (5y 5m COE left)","$17,780 /yr","95,000 km",1 Owner,https://www.sgcarmart.com/used-cars/info/honda-civic-15a-vtec-1403048/?dl=4460
 Audi A5 Sportback 2.0A TFSI S-tronic Design,"$92,200","29-Oct-2018
@@ -28794,6 +28794,6 @@ BMW 3 Series 335i (COE till 04/2031),"$89,999","18-Jun-2012
 (5y 10m COE left)","$15,370 /yr","152,000 km",5 Owners,https://www.sgcarmart.com/used-cars/info/bmw-3-series-335i-1383154/?dl=4666&utm_content=SLeligible
 Mercedes-Benz E-Class E220d SE Premium Sunroof,"$79,800","28-Nov-2017
 (2y 5m COE left)","$21,810 /yr",N.A,3 Owners,https://www.sgcarmart.com/used-cars/info/mercedes-benz-e-class-e220d-se-1344615/?dl=1000&utm_content=SLeligible
-Toyota Voxy 2.0A X,"$20,800",21-Jul-2015,N.A,"171,000 km",2 Owners,https://www.sgcarmart.com/used-cars/info/toyota-voxy-20a-x-1325544/?dl=1000
+Toyota Voxy 2.0A X,"$20,800",21-Jul-15,N.A,"171,000 km",2 Owners,https://www.sgcarmart.com/used-cars/info/toyota-voxy-20a-x-1325544/?dl=1000
 Shineray X30L Electric,"$67,888","14-Jun-2024
 (8y 11m COE left)","$7,560 /yr",N.A,2 Owners,https://www.sgcarmart.com/used-cars/info/shineray-x30l-electric-1383258/?dl=3895
