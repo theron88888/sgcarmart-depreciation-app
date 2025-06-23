@@ -67,6 +67,8 @@ for page_num in range(1, MAX_PAGES + 1):
                     By.XPATH, ".//div[contains(@class, 'listing_mileage_box')]").text.strip()
                 owners = listing.find_element(
                     By.XPATH, ".//div[contains(@class, 'listing_owner_box')]").text.strip()
+                url = listing.find_element(
+                    By.TAG_NAME, "a").get_attribute("href")
 
                 uid = f"{title}|{reg_date}|{price}"
                 if uid in scraped_ids:
@@ -79,7 +81,8 @@ for page_num in range(1, MAX_PAGES + 1):
                     "Reg Date": reg_date,
                     "Depreciation": depreciation,
                     "Mileage": mileage,
-                    "Owners": owners
+                    "Owners": owners,
+                    "URL": url
                 })
 
             except Exception as e:
