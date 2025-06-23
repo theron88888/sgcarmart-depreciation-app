@@ -16,13 +16,15 @@ BASE_URL = "https://www.sgcarmart.com/used-cars/listing?cts[]=18&cts[]=2&cts[]=3
 SAVE_EVERY = 1000
 MAX_PAGES = 570
 
-SAVE_DIR = r"C:\Users\thero\OneDrive\Desktop\Sgcarmart\data"
+SAVE_DIR = os.path.join("data")
 os.makedirs(SAVE_DIR, exist_ok=True)
 MASTER_PATH = os.path.join(SAVE_DIR, "used_cars_master.csv")
 
 # ---------- SELENIUM SETUP ---------- #
 options = Options()
 options.add_argument('--headless')
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 options.add_argument('--disable-gpu')
 options.add_argument('--log-level=3')
 driver = webdriver.Chrome(options=options)
