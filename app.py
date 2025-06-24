@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import math
 
 # Load your master dataset
 df = pd.read_csv("data/used_cars_master.csv")
@@ -14,7 +15,7 @@ df['Reg Year'] = df['Reg Date'].str.extract(r'(\d{4})')
 df = df.dropna(subset=['Reg Year'])
 df['Reg Year'] = df['Reg Year'].astype(int)
 
-# Handle reset logic
+# Session state for reset
 if 'reset' not in st.session_state:
     st.session_state['reset'] = False
 
@@ -23,14 +24,11 @@ st.sidebar.header("Filter Options")
 make_model_input = st.sidebar.text_input(
     "Enter Make & Model (e.g., Honda Vezel)", "")
 
-# Filter dataset by make/model early to dynamically update other filters
 filtered_base = df[df['Title'].str.contains(
     make_model_input, case=False, na=False)] if make_model_input else df
-
 owner_options = sorted(filtered_base['Owners'].dropna().unique())
 year_options = sorted(filtered_base['Reg Year'].dropna().unique())
 
-# Only set default filters if not reset
 if st.session_state['reset']:
     selected_owners = st.sidebar.multiselect(
         "Select Number of Owners", owner_options, default=[])
@@ -51,10 +49,10 @@ if st.sidebar.button("Reset Filters"):
 else:
     st.session_state['reset'] = False
 
-# Main App
-st.title("\U0001F697 Sgcarmart Used Car Depreciation Explorer")
+# Main Title
+st.title("🚗 Sgcarmart Used Car Depreciation Explorer")
 
-# Filter based on selections
+# Filtering
 filtered_df = filtered_base.copy()
 
 if selected_owners:
@@ -67,7 +65,7 @@ filtered_df = filtered_df[
     (filtered_df['Mileage (km)'] <= max_mileage)
 ]
 
-# Display active filters
+# Show active filters
 owner_display = ', '.join(selected_owners) if selected_owners else 'All'
 year_display = ', '.join(map(str, selected_years)) if selected_years else 'All'
 st.markdown(
@@ -80,33 +78,57 @@ if filtered_df.empty:
 else:
     st.write(f"### Results for '{make_model_input or 'All Models'}'")
 
-    # Summary
+    # Summary Table
     summary = filtered_df.groupby(['Owners', 'Reg Year'])['Depreciation ($)'].agg(
         Average='mean',
         Lowest='min',
         Highest='max'
     ).reset_index().sort_values(by=['Owners', 'Reg Year'])
-
-    st.write(
-        "### \U0001F4CA Depreciation Summary by Number of Owners and Registration Year")
     summary[['Average', 'Lowest', 'Highest']] = summary[[
         'Average', 'Lowest', 'Highest']].round(2)
+
+    st.write("### 📊 Depreciation Summary by Number of Owners and Registration Year")
     st.dataframe(summary)
 
-    # Matching Listings Table
+    # Listings Table with Pagination
     st.write("**Matching Listings**")
-    st.dataframe(
-        filtered_df[['Title', 'Price', 'Reg Date',
-                     'Depreciation', 'Mileage', 'Owners']]
+
+    # Create clickable link
+    filtered_df['Link'] = filtered_df['URL'].apply(
+        lambda x: f'<a href="{x}" target="_blank">View Listing</a>')
+    filtered_df['Reg Date'] = filtered_df['Reg Date'].str.replace('\n', ' ')
+
+    display_df = filtered_df[['Title', 'Price', 'Reg Date',
+                              'Depreciation', 'Mileage', 'Owners', 'Link']]
+
+    # Pagination logic
+    listings_per_page = 10
+    total_listings = len(display_df)
+    total_pages = math.ceil(total_listings / listings_per_page)
+    page = st.number_input("Page", min_value=1,
+                           max_value=total_pages, step=1, value=1)
+    start_idx = (page - 1) * listings_per_page
+    end_idx = start_idx + listings_per_page
+    paginated_df = display_df.iloc[start_idx:end_idx].copy()
+
+    # Render as scrollable HTML table
+    html_table = paginated_df.to_html(escape=False, index=False)
+    st.markdown(
+        f"""
+        <div style="overflow-x: auto; white-space: nowrap;">
+            {html_table}
+        </div>
+        <p style="font-size: 0.85rem;">Showing listings {start_idx+1}–{min(end_idx, total_listings)} of {total_listings}</p>
+        """,
+        unsafe_allow_html=True
     )
 
     # Clustered Bar Chart
-    st.write("#### \U0001F4CA Clustered Bar Chart: Depreciation Summary")
+    st.write("#### 📊 Clustered Bar Chart: Depreciation Summary")
     owner_options_chart = summary['Owners'].unique().tolist()
     if owner_options_chart:
         selected_owner = st.selectbox(
             "Choose Number of Owners", sorted(owner_options_chart))
-
         owner_filtered = summary[summary['Owners'] == selected_owner]
         melted = owner_filtered.melt(
             id_vars='Reg Year',
@@ -114,7 +136,6 @@ else:
             var_name='Metric',
             value_name='Depreciation ($)'
         )
-
         fig = px.bar(
             melted,
             x='Reg Year',
@@ -129,7 +150,7 @@ else:
         st.plotly_chart(fig, use_container_width=True)
 
     # Line Chart
-    st.write("#### \U0001F4C8 Depreciation Trends per Owner Count")
+    st.write("#### 📈 Depreciation Trends per Owner Count")
     line_chart = px.line(
         summary,
         x='Reg Year',
@@ -141,6 +162,5 @@ else:
     )
     st.plotly_chart(line_chart, use_container_width=True)
 
-
-# use this to run in terminal
+# Run this script using:
 # streamlit run app.py
