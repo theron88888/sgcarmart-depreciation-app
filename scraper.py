@@ -126,38 +126,20 @@ if results:
 else:
     chunk_file = None
 
-# ---------- UPDATE MASTER DATABASE ---------- #
-# Collect all CSVs (chunk + final)
+# ---------- SAVE TODAY'S SCRAPED DATA AS MASTER ---------- #
+# Collect all CSVs (chunk + final) for today
 chunk_files = glob(os.path.join(SAVE_DIR, "used_car_chunk_*.csv"))
 final_files = glob(os.path.join(SAVE_DIR, "used_car_final_*.csv"))
 all_data_files = chunk_files + final_files
 
-combined_chunks = pd.concat([pd.read_csv(f)
-                            for f in all_data_files], ignore_index=True)
+combined_today_df = pd.concat(
+    [pd.read_csv(f) for f in all_data_files],
+    ignore_index=True
+)
 
-# Load master and compare
-if os.path.exists(MASTER_PATH):
-    master_df = pd.read_csv(MASTER_PATH)
-    master_ids = set(
-        f"{row['Title']}|{row['Reg Date']}|{row['Price']}" for _, row in master_df.iterrows())
-else:
-    master_df = pd.DataFrame()
-    master_ids = set()
-
-# Filter only new rows
-new_rows = []
-for _, row in combined_chunks.iterrows():
-    uid = f"{row['Title']}|{row['Reg Date']}|{row['Price']}"
-    if uid not in master_ids:
-        new_rows.append(row)
-
-if new_rows:
-    updated_df = pd.concat(
-        [master_df, pd.DataFrame(new_rows)], ignore_index=True)
-    updated_df.to_csv(MASTER_PATH, index=False)
-    print(f"✅ Appended {len(new_rows)} new listings to {MASTER_PATH}")
-else:
-    print("ℹ️ No new listings to append to master.")
+# Save to master (overwrite)
+combined_today_df.to_csv(MASTER_PATH, index=False)
+print(f"✅ Overwrote master file with {len(combined_today_df)} listings.")
 
 # ---------- DELETE CHUNK FILES ---------- #
 for file_path in all_data_files:
