@@ -32,8 +32,9 @@ jobs:
 
       - name: Install matching ChromeDriver
         run: |
-          sudo rm -f /usr/local/bin/chromedriver || true
-          wget https://chromedriver.storage.googleapis.com/137.0.7151.119/chromedriver_linux64.zip
+          CHROME_MAJOR_VERSION=$(google-chrome --version | grep -oP '\d+' | head -1)
+          DRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION)
+          wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
