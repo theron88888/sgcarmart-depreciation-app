@@ -6,68 +6,50 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-scraper:
+  setup-chromedriver:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: 🧰 Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+      - name: 🔧 Install jq for JSON parsing
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Install Python dependencies
+      - name: 🧪 Install Google Chrome Stable
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Install Google Chrome and matching ChromeDriver
-        run: |
-          set -e
-
-          echo "🔧 Installing dependencies..."
-          sudo apt update
-          sudo apt install -y wget unzip curl gnupg
-
-          echo "🔧 Adding Google Chrome repo..."
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
-          echo "🌐 Installing Google Chrome..."
-          sudo apt update
-          sudo apt install -y google-chrome-stable
-
-          echo "🔍 Getting installed Chrome version..."
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
-          echo "✅ Installed Chrome: $CHROME_VERSION (Major: $MAJOR_VERSION)"
-
-          echo "🌐 Fetching compatible ChromeDriver for major version $MAJOR_VERSION..."
+      - name: 🧩 Install matching ChromeDriver
+        run: |
+          set -e
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
           echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          echo "🌐 Getting exact matching ChromeDriver version from official API..."
-          DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" \
-            | grep -A10 "\"version\": \"$CHROME_VERSION\"" \
-            | grep "chromedriver-linux64.zip" \
-            | grep -oP 'https://[^"]+')
+          CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" \
+          | jq -r --arg ver "$CHROME_VERSION" '.channels | to_entries[] | select(.value.version == $ver) 
+            | .value.downloads.chromedriver[] 
+            | select(.platform == "linux64") 
+            | .url')
 
-          if [ -z "$DRIVER_URL" ]; then
-            echo "❌ No ChromeDriver available for Chrome $CHROME_VERSION"
+          if [[ -z "$CHROMEDRIVER_URL" ]]; then
+            echo "❌ No ChromeDriver found for version $CHROME_VERSION"
             exit 1
           fi
 
-          echo "📦 Downloading ChromeDriver from $DRIVER_URL"
-          wget -q "$DRIVER_URL" -O chromedriver.zip
+          echo "📦 Downloading ChromeDriver from: $CHROMEDRIVER_URL"
+          wget -q "$CHROMEDRIVER_URL" -O chromedriver.zip
 
           unzip -o chromedriver.zip
           sudo mv -f chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
-          echo "✅ Installed ChromeDriver version:"
+          echo "✅ ChromeDriver version:"
           chromedriver --version
+
 
       - name: Run scraper
         run: python scraper.py
