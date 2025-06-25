@@ -45,22 +45,29 @@ jobs:
           echo "✅ Installed Chrome: $CHROME_VERSION (Major: $MAJOR_VERSION)"
 
           echo "🌐 Fetching compatible ChromeDriver for major version $MAJOR_VERSION..."
-          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${MAJOR_VERSION}")
-          echo "📦 ChromeDriver version: $DRIVER_VERSION"
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+          echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          wget -q "https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip" -O chromedriver.zip
+          echo "🌐 Getting exact matching ChromeDriver version from official API..."
+          DRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" \
+            | grep -A10 "\"version\": \"$CHROME_VERSION\"" \
+            | grep "chromedriver-linux64.zip" \
+            | grep -oP 'https://[^"]+')
 
-          if [ -f chromedriver.zip ]; then
-            unzip -o chromedriver.zip
-            sudo mv -f chromedriver /usr/local/bin/chromedriver
-            sudo chmod +x /usr/local/bin/chromedriver
-            echo "✅ ChromeDriver installed:"
-            chromedriver --version
-          else
-            echo "❌ Failed to download ChromeDriver ZIP"
+          if [ -z "$DRIVER_URL" ]; then
+            echo "❌ No ChromeDriver available for Chrome $CHROME_VERSION"
             exit 1
           fi
 
+          echo "📦 Downloading ChromeDriver from $DRIVER_URL"
+          wget -q "$DRIVER_URL" -O chromedriver.zip
+
+          unzip -o chromedriver.zip
+          sudo mv -f chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+
+          echo "✅ Installed ChromeDriver version:"
+          chromedriver --version
 
       - name: Run scraper
         run: python scraper.py
