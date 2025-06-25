@@ -2,7 +2,7 @@ name: Daily Scraper
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Every day at 8am SGT (midnight UTC)
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC (8am SGT)
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -18,48 +18,52 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Chrome and ChromeDriver
+      - name: Install Google Chrome and ChromeDriver
         run: |
-          set -e  # Exit on error
-          echo "🔧 Installing Chrome and ChromeDriver..."
-
+          set -e
+          echo "🔧 Updating apt and installing dependencies..."
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
 
-          # Add Google Chrome repo
+          echo "🔧 Adding Google Chrome signing key and repo..."
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
+          echo "🌐 Installing Google Chrome stable..."
           sudo apt update
           sudo apt install -y google-chrome-stable
 
+          echo "🔍 Detecting installed Chrome version..."
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
           echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          # Use known compatible driver
+          echo "🔍 Installing known compatible ChromeDriver for v138..."
           DRIVER_VERSION="138.0.7240.0"
-          echo "📦 Installing ChromeDriver version: $DRIVER_VERSION"
+          wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip -O chromedriver.zip
 
-          wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
-          unzip -o chromedriver_linux64.zip
-          sudo mv -f chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
-          
-          chromedriver --version
+          if [ -f chromedriver.zip ]; then
+            unzip -o chromedriver.zip
+            sudo mv -f chromedriver /usr/local/bin/chromedriver
+            sudo chmod +x /usr/local/bin/chromedriver
+            chromedriver --version || echo "⚠️ ChromeDriver installed but failed to run."
+          else
+            echo "❌ Failed to download ChromeDriver zip file"
+            exit 1
+          fi
 
-      - name: Run Scraper
+      - name: Run scraper
         run: python scraper.py
 
-      - name: Commit and Push Data
+      - name: Commit and push updated CSV
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add used_cars_master.csv
-          git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d %H:%M:%S')]" || echo "No changes to commit."
+          git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d')]" || echo "🟡 No changes to commit"
           git push
         continue-on-error: true
