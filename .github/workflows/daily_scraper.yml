@@ -21,40 +21,37 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Chrome and matching ChromeDriver
+      - name: Install Chrome 137 and matching ChromeDriver
         run: |
-          # Install Chrome
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
+
+          # Add key & repo
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+
           sudo apt update
-          sudo apt install -y google-chrome-stable
+          sudo apt install -y google-chrome-stable=137.0.7151.103-1
 
-          # Get installed Chrome version
+          # Confirm version
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          echo "Chrome version: $CHROME_VERSION"
           CHROME_MAJOR=$(echo "$CHROME_VERSION" | cut -d '.' -f 1)
+          echo "✅ Installed Chrome $CHROME_VERSION"
 
-          # Get matching ChromeDriver version
+          # Get compatible ChromeDriver
           DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR}")
-          
-          if [[ -z "$DRIVER_VERSION" || "$DRIVER_VERSION" == *"<"* ]]; then
-            echo "❌ Failed to fetch valid ChromeDriver version for Chrome $CHROME_MAJOR"
-            exit 1
-          fi
+          echo "📦 Matching ChromeDriver version: $DRIVER_VERSION"
 
-          echo "Installing ChromeDriver version: $DRIVER_VERSION"
-
-          # Clean old versions
+          # Remove old driver if any
           sudo rm -f /usr/local/bin/chromedriver
-          wget -q https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
+
+          # Download and install
+          wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
-          # Confirm installed versions
-          google-chrome --version
+          # Confirm
           chromedriver --version
 
       - name: Run scraper
