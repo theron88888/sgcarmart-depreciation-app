@@ -23,15 +23,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Google Chrome and ChromeDriver
+      - name: Install Google Chrome and matching ChromeDriver
         run: |
           set -e
 
-          echo "🔧 Updating apt and installing dependencies..."
+          echo "🔧 Installing dependencies..."
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
 
-          echo "🔧 Adding Chrome signing key and repo..."
+          echo "🔧 Adding Google Chrome repo..."
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
@@ -39,26 +39,28 @@ jobs:
           sudo apt update
           sudo apt install -y google-chrome-stable
 
-          echo "🔍 Detecting installed Chrome version..."
+          echo "🔍 Getting installed Chrome version..."
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          echo "✅ Installed Chrome version: $CHROME_VERSION"
+          MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+          echo "✅ Installed Chrome: $CHROME_VERSION (Major: $MAJOR_VERSION)"
 
-          echo "📦 Installing ChromeDriver for v138..."
-          DRIVER_VERSION="138.0.7240.0"
-          DRIVER_URL="https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip"
-          echo "🌐 Downloading from: $DRIVER_URL"
-          wget -q --show-progress --https-only --timestamping "$DRIVER_URL" -O chromedriver.zip
+          echo "🌐 Fetching compatible ChromeDriver for major version $MAJOR_VERSION..."
+          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${MAJOR_VERSION}")
+          echo "📦 ChromeDriver version: $DRIVER_VERSION"
+
+          wget -q "https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip" -O chromedriver.zip
 
           if [ -f chromedriver.zip ]; then
             unzip -o chromedriver.zip
             sudo mv -f chromedriver /usr/local/bin/chromedriver
             sudo chmod +x /usr/local/bin/chromedriver
-            echo "✅ Installed ChromeDriver version:"
+            echo "✅ ChromeDriver installed:"
             chromedriver --version
           else
-            echo "❌ ChromeDriver zip not downloaded properly."
+            echo "❌ Failed to download ChromeDriver ZIP"
             exit 1
           fi
+
 
       - name: Run scraper
         run: python scraper.py
