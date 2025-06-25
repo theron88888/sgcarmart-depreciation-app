@@ -1,68 +1,65 @@
-name: Daily Scraper Update
+name: Daily Scraper
 
 on:
   schedule:
-    - cron: '0 1 * * *'  # runs daily at 1:00 AM UTC
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC (8 AM SGT)
   workflow_dispatch:
 
 jobs:
-  update-dataset:
+  run-scraper:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install Python deps
+      - name: Install Dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Chrome 137 and matching ChromeDriver
+      - name: Install Chrome and ChromeDriver
         run: |
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
 
-          # Add key & repo
+          # Add Google Chrome repo
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
           sudo apt update
-          sudo apt install -y google-chrome-stable=137.0.7151.103-1
+          sudo apt install -y google-chrome-stable
 
-          # Confirm version
+          # Confirm Chrome version
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          echo "✅ Installed Chrome $CHROME_VERSION"
+          echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          # Manually assign known compatible driver
-          DRIVER_VERSION=137.0.7151.101
+          # Use known compatible ChromeDriver version
+          DRIVER_VERSION=138.0.7240.0
           echo "📦 Installing ChromeDriver version: $DRIVER_VERSION"
 
-          # Remove old driver if any
+          # Install ChromeDriver
           sudo rm -f /usr/local/bin/chromedriver
-
-          # Download and install
           wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
-          # Confirm
           chromedriver --version
 
-      - name: Run scraper
-        run: |
-          xvfb-run --auto-servernum python scraper.py
+      - name: Run Scraper
+        run: python scraper.py
 
-      - name: Commit updated dataset
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and Push Data
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/used_cars_master.csv
-          git commit -m "🔄 Daily data update" || echo "No changes"
+          git add used_cars_master.csv
+          git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d %H:%M:%S')]"
           git push
+        continue-on-error: true
