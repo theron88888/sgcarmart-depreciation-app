@@ -22,14 +22,20 @@ MASTER_PATH = os.path.join(SAVE_DIR, "used_cars_master.csv")
 
 # ---------- SELENIUM SETUP ---------- #
 options = Options()
-options.add_argument('--headless=new')  # or '--headless=chrome'
+options.add_argument('--headless=new')
 options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--window-size=1920,1080')
 options.add_argument(
-    '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36')
-driver = webdriver.Chrome(options=options)
+    '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
+)
+try:
+    driver = webdriver.Chrome(options=options)
+except Exception as e:
+    print(f"❌ Failed to initialize Chrome WebDriver: {e}")
+    exit(1)
+
 wait = WebDriverWait(driver, 20)
 
 # ---------- SCRAPER LOOP ---------- #
@@ -41,11 +47,22 @@ for page_num in range(1, MAX_PAGES + 1):
     print(f"Scraping page {page_num}: {url}")
 
     try:
-        driver.get(url)
-        wait.until(
-            EC.presence_of_element_located(
-                (By.XPATH, "//div[starts-with(@id, 'listing_')]"))
-        )
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                driver.get(url)
+                wait.until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//div[starts-with(@id, 'listing_')]"))
+                )
+                break
+            except Exception as e:
+                print(
+                    f"⏳ Retry {attempt+1}/{max_retries} for page {page_num} due to: {e}")
+                time.sleep(random.uniform(2, 4))
+                if attempt == max_retries - 1:
+                    raise
+
         time.sleep(random.uniform(1.5, 3.5))
 
         listings = driver.find_elements(
@@ -53,6 +70,8 @@ for page_num in range(1, MAX_PAGES + 1):
 
         if not listings:
             print(f"🚫 No listings found on page {page_num}. Stopping.")
+            print("🔍 First 300 characters of page source for debugging:\n")
+            print(driver.page_source[:300])
             break
 
         for idx, listing in enumerate(listings, 1):
@@ -129,19 +148,28 @@ else:
     chunk_file = None
 
 # ---------- SAVE TODAY'S SCRAPED DATA AS MASTER ---------- #
-# Collect all CSVs (chunk + final) for today
 chunk_files = glob(os.path.join(SAVE_DIR, "used_car_chunk_*.csv"))
 final_files = glob(os.path.join(SAVE_DIR, "used_car_final_*.csv"))
 all_data_files = chunk_files + final_files
 
-combined_today_df = pd.concat(
-    [pd.read_csv(f) for f in all_data_files],
-    ignore_index=True
-)
+if all_data_files:
+    combined_today_df = pd.concat(
+        [pd.read_csv(f, encoding='utf-8') for f in all_data_files],
+        ignore_index=True
+    )
 
-# Save to master (overwrite)
-combined_today_df.to_csv(MASTER_PATH, index=False)
-print(f"✅ Overwrote master file with {len(combined_today_df)} listings.")
+    # Optional 2: Backup old master file
+    if os.path.exists(MASTER_PATH):
+        backup_path = MASTER_PATH.replace(
+            ".csv", f"_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv")
+        os.rename(MASTER_PATH, backup_path)
+        print(f"🗂️ Backed up previous master to {backup_path}")
+
+    # Save new master
+    combined_today_df.to_csv(MASTER_PATH, index=False)
+    print(f"✅ Overwrote master file with {len(combined_today_df)} listings.")
+else:
+    print("⚠️ No chunk files found to combine. Master file not updated.")
 
 # ---------- DELETE CHUNK FILES ---------- #
 for file_path in all_data_files:
@@ -150,7 +178,6 @@ for file_path in all_data_files:
         print(f"🗑️ Deleted chunk/final file: {file_path}")
     except Exception as e:
         print(f"❌ Failed to delete {file_path}: {e}")
-
 
 # ---------- CLEANUP ---------- #
 driver.quit()
