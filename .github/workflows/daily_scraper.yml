@@ -2,7 +2,7 @@ name: Daily Scraper
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC (8am SGT)
+    - cron: '0 0 * * *'  # Daily at midnight UTC (8am SGT)
   workflow_dispatch:
 
 jobs:
@@ -26,15 +26,16 @@ jobs:
       - name: Install Google Chrome and ChromeDriver
         run: |
           set -e
+
           echo "🔧 Updating apt and installing dependencies..."
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
 
-          echo "🔧 Adding Google Chrome signing key and repo..."
+          echo "🔧 Adding Chrome signing key and repo..."
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
           echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
-          echo "🌐 Installing Google Chrome stable..."
+          echo "🌐 Installing Google Chrome..."
           sudo apt update
           sudo apt install -y google-chrome-stable
 
@@ -42,17 +43,20 @@ jobs:
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
           echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          echo "🔍 Installing known compatible ChromeDriver for v138..."
+          echo "📦 Installing ChromeDriver for v138..."
           DRIVER_VERSION="138.0.7240.0"
-          wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip -O chromedriver.zip
+          DRIVER_URL="https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip"
+          echo "🌐 Downloading from: $DRIVER_URL"
+          wget -q --show-progress --https-only --timestamping "$DRIVER_URL" -O chromedriver.zip
 
           if [ -f chromedriver.zip ]; then
             unzip -o chromedriver.zip
             sudo mv -f chromedriver /usr/local/bin/chromedriver
             sudo chmod +x /usr/local/bin/chromedriver
-            chromedriver --version || echo "⚠️ ChromeDriver installed but failed to run."
+            echo "✅ Installed ChromeDriver version:"
+            chromedriver --version
           else
-            echo "❌ Failed to download ChromeDriver zip file"
+            echo "❌ ChromeDriver zip not downloaded properly."
             exit 1
           fi
 
