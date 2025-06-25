@@ -2,57 +2,40 @@ name: Daily Scraper Update
 
 on:
   schedule:
-    - cron: '0 1 * * *'  # Runs every day at 1:00 AM UTC
-  workflow_dispatch:     # Allows manual triggering of workflow
+    - cron: '0 1 * * *'  # runs daily at 1:00 AM UTC
+  workflow_dispatch:
 
 jobs:
   update-dataset:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install Python deps
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Install Chrome
-      run: |
-        sudo apt update
-        sudo apt install -y wget unzip curl gnupg
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-        sudo apt update
-        sudo apt install -y google-chrome-stable
-    
-    - name: Check Chrome Version
-      run: google-chrome --version    
+      - name: Setup Chrome & ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
 
-    - name: Install ChromeDriver
-      run: |
-        CHROME_VERSION=$(/usr/bin/google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
-        DRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-        wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
+      - name: Run scraper
+        run: |
+          xvfb-run --auto-servernum python scraper.py
 
-    - name: Run scraper script
-      run: python scraper.py
-
-    - name: Commit and Push Updated Dataset
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add data/used_cars_master.csv
-        git commit -m "🔄 Daily data update" || echo "No changes to commit"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit updated dataset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/used_cars_master.csv
+          git commit -m "🔄 Daily data update" || echo "No changes"
+          git push
