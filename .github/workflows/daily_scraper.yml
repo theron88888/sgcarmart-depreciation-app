@@ -2,7 +2,7 @@ name: Daily Scraper
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs daily at midnight UTC (8 AM SGT)
+    - cron: '0 0 * * *'  # Every day at 8am SGT (midnight UTC)
   workflow_dispatch:
 
 jobs:
@@ -25,6 +25,9 @@ jobs:
 
       - name: Install Chrome and ChromeDriver
         run: |
+          set -e  # Exit on error
+          echo "🔧 Installing Chrome and ChromeDriver..."
+
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
 
@@ -35,21 +38,18 @@ jobs:
           sudo apt update
           sudo apt install -y google-chrome-stable
 
-          # Confirm Chrome version
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
           echo "✅ Installed Chrome version: $CHROME_VERSION"
 
-          # Use known compatible ChromeDriver version
-          DRIVER_VERSION=138.0.7240.0
+          # Use known compatible driver
+          DRIVER_VERSION="138.0.7240.0"
           echo "📦 Installing ChromeDriver version: $DRIVER_VERSION"
 
-          # Install ChromeDriver
-          sudo rm -f /usr/local/bin/chromedriver
           wget -q https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
+          unzip -o chromedriver_linux64.zip
+          sudo mv -f chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
-
+          
           chromedriver --version
 
       - name: Run Scraper
@@ -57,9 +57,9 @@ jobs:
 
       - name: Commit and Push Data
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add used_cars_master.csv
-          git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d %H:%M:%S')]"
+          git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d %H:%M:%S')]" || echo "No changes to commit."
           git push
         continue-on-error: true
