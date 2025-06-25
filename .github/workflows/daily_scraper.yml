@@ -21,10 +21,22 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Setup Chrome & ChromeDriver
-        uses: browser-actions/setup-chrome@v1
-        with:
-          install-chromedriver: true
+      - name: Install Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y wget unzip curl gnupg
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt update
+          sudo apt install -y google-chrome-stable=137.0.7151.103-1
+
+      - name: Install matching ChromeDriver
+        run: |
+          sudo rm -f /usr/local/bin/chromedriver || true
+          wget https://chromedriver.storage.googleapis.com/137.0.7151.119/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run scraper
         run: |
