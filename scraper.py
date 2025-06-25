@@ -30,12 +30,8 @@ options.add_argument('--window-size=1920,1080')
 options.add_argument(
     '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
 )
-try:
-    driver = webdriver.Chrome(options=options)
-except Exception as e:
-    print(f"❌ Failed to initialize Chrome WebDriver: {e}")
-    exit(1)
 
+driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 20)
 
 # ---------- SCRAPER LOOP ---------- #
