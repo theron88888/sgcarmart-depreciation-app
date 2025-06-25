@@ -21,7 +21,7 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install latest Chrome and ChromeDriver
+      - name: Install latest Chrome and matching ChromeDriver
         run: |
           sudo apt update
           sudo apt install -y wget unzip curl gnupg
@@ -30,15 +30,24 @@ jobs:
           sudo apt update
           sudo apt install -y google-chrome-stable
 
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-          echo "Chrome version: $CHROME_VERSION"
-          echo "Installing ChromeDriver version: $DRIVER_VERSION"
+          # Remove preinstalled incompatible ChromeDriver from GitHub Actions runner
+          sudo rm -f /usr/local/bin/chromedriver
+          sudo rm -f /opt/hostedtoolcache/**/chromedriver/*/x64/chromedriver
 
-          wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
+          # Get Chrome major version
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+          CHROME_MAJOR=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+
+          # Download matching ChromeDriver
+          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR}")
+          wget https://chromedriver.storage.googleapis.com/${DRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
+
+          # Confirm both versions
+          google-chrome --version
+          chromedriver --version
 
       - name: Run scraper
         run: |
