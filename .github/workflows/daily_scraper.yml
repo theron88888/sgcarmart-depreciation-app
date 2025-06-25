@@ -35,12 +35,11 @@ jobs:
 
           # Confirm version
           CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          CHROME_MAJOR=$(echo "$CHROME_VERSION" | cut -d '.' -f 1)
           echo "✅ Installed Chrome $CHROME_VERSION"
 
-          # Get compatible ChromeDriver
-          DRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR}")
-          echo "📦 Matching ChromeDriver version: $DRIVER_VERSION"
+          # Manually assign known compatible driver
+          DRIVER_VERSION=137.0.7151.101
+          echo "📦 Installing ChromeDriver version: $DRIVER_VERSION"
 
           # Remove old driver if any
           sudo rm -f /usr/local/bin/chromedriver
