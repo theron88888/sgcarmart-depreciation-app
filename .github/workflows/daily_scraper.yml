@@ -30,14 +30,14 @@ jobs:
           sudo apt update
           sudo apt install -y google-chrome-stable=137.0.7151.103-1
 
-      - name: Symlink Chrome to PATH
-        run: |
-          sudo ln -sf /opt/google/chrome/google-chrome /usr/bin/google-chrome
-
       - name: Install matching ChromeDriver
         run: |
-          CHROME_MAJOR_VERSION=$(/opt/google/chrome/google-chrome --version | grep -oP '\d+' | head -1)
+          CHROME_PATH=$(command -v google-chrome || command -v google-chrome-stable)
+          echo "Chrome binary found at: $CHROME_PATH"
+          "$CHROME_PATH" --version
+          CHROME_MAJOR_VERSION=$($CHROME_PATH --version | grep -oP '^\S+ \K\d+')
           DRIVER_VERSION=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION)
+          echo "Installing ChromeDriver version $DRIVER_VERSION"
           wget https://chromedriver.storage.googleapis.com/$DRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/
