@@ -4,3 +4,4 @@ plotly
 selenium
 requests
 beautifulsoup4
+undetected_chromedriver
