@@ -22,11 +22,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: 🧩 Install ChromeDriver 138 (matches Chrome 138)
+      - name: 🧩 Install matching ChromeDriver (v137)
         run: |
-          CHROMEDRIVER_URL="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/138.0.7204.49/linux64/chromedriver-linux64.zip"
+          CHROMEDRIVER_URL="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/137.0.7151.119/linux64/chromedriver-linux64.zip"
           wget -q "$CHROMEDRIVER_URL" -O chromedriver.zip
-          unzip -o chromedriver.zip
+          unzip chromedriver.zip
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
           chromedriver --version
