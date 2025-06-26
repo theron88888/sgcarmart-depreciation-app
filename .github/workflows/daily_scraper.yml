@@ -6,15 +6,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup-chromedriver:
+  run-scraper:
     runs-on: ubuntu-latest
 
     steps:
       - name: 🧰 Checkout code
         uses: actions/checkout@v3
-
-      - name: 🔧 Install jq for JSON parsing
-        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: 🧪 Install Google Chrome Stable
         run: |
@@ -23,44 +20,22 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: 🧩 Install matching ChromeDriver
+      - name: 🐍 Set up Python and install dependencies
         run: |
-          set -e
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          echo "✅ Installed Chrome version: $CHROME_VERSION"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-          CHROMEDRIVER_URL=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" \
-          | jq -r --arg ver "$CHROME_VERSION" '.channels | to_entries[] | select(.value.version == $ver) 
-            | .value.downloads.chromedriver[] 
-            | select(.platform == "linux64") 
-            | .url')
+      - name: 🖥️ Print Chrome version for logging
+        run: google-chrome --version
 
-          if [[ -z "$CHROMEDRIVER_URL" ]]; then
-            echo "❌ No ChromeDriver found for version $CHROME_VERSION"
-            exit 1
-          fi
-
-          echo "📦 Downloading ChromeDriver from: $CHROMEDRIVER_URL"
-          wget -q "$CHROMEDRIVER_URL" -O chromedriver.zip
-
-          unzip -o chromedriver.zip
-          sudo mv -f chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
-
-          echo "✅ ChromeDriver version:"
-          chromedriver --version
-
-      - name: 📦 Install Python dependencies
-        run: pip install -r requirements.txt
-        
-      - name: Run scraper
+      - name: 🕷️ Run scraper
         run: python scraper.py
 
-      - name: Commit and push updated CSV
+      - name: 📤 Commit and push updated data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add used_cars_master.csv
+          git add data/used_cars_master.csv
           git commit -m "🔄 Auto update scraped data [$(date '+%Y-%m-%d')]" || echo "🟡 No changes to commit"
           git push
         continue-on-error: true
