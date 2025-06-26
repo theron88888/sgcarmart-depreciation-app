@@ -5,11 +5,19 @@ import time
 import random
 from glob import glob
 from datetime import datetime
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# ✅ Print Chrome and Chromedriver versions for debugging
+print("🔍 Chrome version:")
+subprocess.run(["google-chrome", "--version"])
+
+print("🔍 Chromedriver version:")
+subprocess.run(["chromedriver", "--version"])
 
 # ---------- CONFIGURATION ---------- #
 BASE_URL = "https://www.sgcarmart.com/used-cars/listing?cts[]=18&cts[]=2&cts[]=3&cts[]=15&cts[]=16&cts[]=6&cts[]=23&cts[]=24&cts[]=25&cts[]=5&cts[]=20&cts[]=21&cts[]=28&cts[]=29&vts[]=12&vts[]=13&vts[]=9&vts[]=10&vts[]=11&vts[]=8&vts[]=7&vts[]=15&vts[]=6&vts[]=16&avl=a&page="
