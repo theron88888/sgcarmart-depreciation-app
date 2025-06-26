@@ -34,7 +34,7 @@ MASTER_PATH = os.path.join(SAVE_DIR, "used_cars_master.csv")
 
 # ---------- SELENIUM SETUP ---------- #
 options = uc.ChromeOptions()
-options.add_argument("--headless=new")  # Use 'new' headless mode
+# options.add_argument("--headless=new")  # Use 'new' headless mode
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
@@ -44,6 +44,10 @@ options.add_argument(
     '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
 # options.add_experimental_option("excludeSwitches", ["enable-automation"])
 # options.add_experimental_option("useAutomationExtension", False)
+IS_CI = os.environ.get("CI") == "true"
+if IS_CI:
+    options.add_argument("--headless=new")
+    print(f"👷‍♂️ CI environment detected: {IS_CI}")
 
 driver = uc.Chrome(options=options)
 # driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
@@ -79,9 +83,8 @@ for page_num in range(1, MAX_PAGES + 1):
             except Exception as e:
                 print(
                     f"⏳ Retry {attempt+1}/{max_retries} for page {page_num} due to: {e}")
-                time.sleep(random.uniform(2, 4))
-                if attempt == max_retries - 1:
-                    raise
+                with open(f"debug_page_{page_num}_attempt{attempt+1}.html", "w", encoding="utf-8") as f:
+                    f.write(driver.page_source)
 
         time.sleep(random.uniform(1.5, 3.5))
 
@@ -91,7 +94,7 @@ for page_num in range(1, MAX_PAGES + 1):
         if not listings:
             print(f"🚫 No listings found on page {page_num}. Stopping.")
             print("🔍 First 300 characters of page source for debugging:\n")
-            print(driver.page_source[:300])
+            print(driver.page_source[:3000])
             with open("debug_page_source.html", "w", encoding="utf-8") as f:
                 f.write(driver.page_source)
             break
