@@ -3,14 +3,18 @@ import pandas as pd
 import os
 import time
 import random
+import undetected_chromedriver as uc
+import subprocess
 from glob import glob
 from datetime import datetime
-import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 # ✅ Print Chrome and Chromedriver versions for debugging
 print("🔍 Chrome version:")
@@ -29,18 +33,26 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 MASTER_PATH = os.path.join(SAVE_DIR, "used_cars_master.csv")
 
 # ---------- SELENIUM SETUP ---------- #
-options = Options()
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--window-size=1920,1080')
-options.binary_location = "/usr/bin/google-chrome"
+options = uc.ChromeOptions()
+options.add_argument("--headless=new")  # Use 'new' headless mode
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--disable-gpu")
 options.add_argument(
-    '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'
-)
+    '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
 
-driver = webdriver.Chrome(options=options)
+driver = uc.Chrome(options=options)
+driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+    "source": """
+        Object.defineProperty(navigator, 'webdriver', {
+          get: () => undefined
+        })
+    """
+})
 wait = WebDriverWait(driver, 20)
 
 # ---------- SCRAPER LOOP ---------- #
@@ -56,6 +68,9 @@ for page_num in range(1, MAX_PAGES + 1):
         for attempt in range(max_retries):
             try:
                 driver.get(url)
+                driver.execute_script(
+                    "window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(3)
                 wait.until(
                     EC.presence_of_element_located(
                         (By.XPATH, "//div[starts-with(@id, 'listing_')]"))
@@ -77,6 +92,8 @@ for page_num in range(1, MAX_PAGES + 1):
             print(f"🚫 No listings found on page {page_num}. Stopping.")
             print("🔍 First 300 characters of page source for debugging:\n")
             print(driver.page_source[:300])
+            with open("debug_page_source.html", "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
             break
 
         for idx, listing in enumerate(listings, 1):
